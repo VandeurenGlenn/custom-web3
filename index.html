@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <custom-web3></custom-web3>
+    <script type="module">    
+      import "./custom-web3.js"
+      
+      customElements.whenDefined('custom-web3').then(() => {
+        const abi = [{}]
+        document.querySelector('custom-web3').addContract('contract name', 'contract address', abi)
+      })      
+    </script>
+  </body>
+</html>

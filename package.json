@@ -1,0 +1,25 @@
+{
+  "name": "@vandeurenglenn/custom-web3",
+  "version": "1.0.0",
+  "description": "Web3 custom-element, brings the whole api and a bit more.",
+  "main": "custom-web3.js",
+  "scripts": {
+    "c": "npm run compile",
+    "compile": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web3",
+    "custom",
+    "element"
+  ],
+  "author": "Glenn Vandeuren <vandeurenglenn@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "web3": "^1.3.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
+    "rollup": "^2.32.1"
+  }
+}
