@@ -2,6 +2,7 @@
   "name": "@vandeurenglenn/custom-web3",
   "version": "1.0.0",
   "description": "Web3 custom-element, brings the whole api and a bit more.",
+  "module": "custom-web3.js",
   "main": "custom-web3.js",
   "scripts": {
     "c": "npm run compile",
