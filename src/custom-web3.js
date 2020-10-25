@@ -1,3 +1,5 @@
+import './../node_modules/web3/dist/web3.min.js'
+
 export default customElements.define('custom-web3', class CustomWeb3 extends HTMLElement {
   static get observedAttributes() {
     return ['provider']
@@ -16,7 +18,6 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
   
   async _init() {
     this.autoConnect = true
-    if (!this.isSupported || !globalThis.web3) await import('./../node_modules/web3/dist/web3.min.js')
     globalThis.web3 = this.isSupported ? globalThis.web3 : new Web3(globalThis.ethereum || web3.currentProvider)
     if (this.autoConnect) this.connect()
   }
@@ -32,8 +33,8 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
    * @params {object} address - contact address
    * @params {object} abi - contract abi
    */
-  addContract(name, address, abi) {
-    globalThis[name] = web3.eth.contract(abi).at(address);
+  async addContract(name, address, abi) {
+    globalThis[name] = new globalThis.web3.eth.Contract(abi, address)
   }
   
   set autoConnect(value) {
@@ -54,9 +55,9 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
           minor: version[1],
           patch: version[2]
         }
-        if (version.major >= 1 && version.minor >= 13) return true
+        if (version.major >= 1 && version.minor >= 3) return true
       }      
-    }    
+    }
     return false
   }
   
