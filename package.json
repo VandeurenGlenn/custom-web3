@@ -25,5 +25,13 @@
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",
     "rollup": "^2.32.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VandeurenGlenn/custom-web3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VandeurenGlenn/custom-web3/issues"
+  },
+  "homepage": "https://github.com/VandeurenGlenn/custom-web3#readme"
 }
