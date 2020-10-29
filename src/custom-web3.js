@@ -1,5 +1,8 @@
 import './../node_modules/web3/dist/web3.min.js'
 
+globalThis.contracts = globalThis.contracts || {}
+
+
 export default customElements.define('custom-web3', class CustomWeb3 extends HTMLElement {
   static get observedAttributes() {
     return ['provider']
@@ -34,7 +37,18 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
    * @params {object} abi - contract abi
    */
   async addContract(name, address, abi) {
-    globalThis[name] = new globalThis.web3.eth.Contract(abi, address)
+    globalThis.contracts[name] = new globalThis.web3.eth.Contract(abi, address)
+    
+    const methods = globalThis.contracts[name].methods
+    
+    globalThis[name] = new Proxy(methods, {
+      get(target, propKey, receiver) {
+        return (...args) => {
+          const result = target[propKey].apply(this, args);
+          return result.call();
+        }
+      }
+    })
   }
   
   set autoConnect(value) {

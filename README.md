@@ -38,7 +38,11 @@ const name = 'mycontract'
 
 document.querySelector('custom-web3').addContract('mycontract', '0x0...', [{}])
 
-globalThis.mycontract
+globalThis.contracts.mycontract // full contract like your used to
+
+globalThis.mycontract // Abi proxy (removes the need to .call())
+
+await globalThis.mycontract.balance('0x0...') // 0
 ```
 
 ### connect()
