@@ -12,7 +12,13 @@
   "keywords": [
     "web3",
     "custom",
-    "element"
+    "element",
+    "contract",
+    "easy",
+    "simple",
+    "api",
+    "eth",
+    "ethereum"
   ],
   "engines": {
     "node": ">=10.0"
