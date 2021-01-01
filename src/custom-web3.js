@@ -75,6 +75,6 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
   }
 
   get accounts() {
-    return web3.eth.requestAccounts ? web3.eth.requestAccounts() : ethereum.enable()
+    return web3.eth.requestAccounts ? web3.eth.requestAccounts() : globalThis.ethereum ? ethereum.enable() : []
   }
 })
