@@ -17,7 +17,7 @@ npm i --save @vandeurenglenn/custom-web3
 <custom-web3></custom-web3>
 <script type="module">
   import '@vandeurenglenn/custom-web3'
-  
+
   customElements.whenDefined('custom-web3').then(() => {
     const abi = [{}]
     document.querySelector('custom-web3').addContract('contract name', 'contract address', abi)
@@ -46,7 +46,7 @@ await globalThis.mycontract.balance('0x0...') // 0
 ```
 
 ### connect()
-Show Dialog and connect account (done automaticly if autoConnect = true)
+Show Dialog and connect account (Metamask etc)
 ```js
 document.querySelector('custom-web3').connect()
 ```
@@ -55,12 +55,6 @@ document.querySelector('custom-web3').connect()
 Returns connected accounts
 ```js
 document.querySelector('custom-web3').accounts
-```
-
-### autoConnect
-true or false (defaults to true)
-```js
-document.querySelector('custom-web3').autoConnect = false
 ```
 
 ### isSupported

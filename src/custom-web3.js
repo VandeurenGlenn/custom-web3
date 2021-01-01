@@ -12,7 +12,7 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
   }
 
   connectedCallback() {
-    globalThis.web3 = this.isSupported ? globalThis.web3 : new Web3(globalThis.ethereum || globalThis.web3.currentProvider)
+    globalThis.web3 = this.isSupported ? globalThis.web3 : new Web3()
   }
 
   attributeChangedCallback(name, old, value) {
