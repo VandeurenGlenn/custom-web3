@@ -75,6 +75,19 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
   }
 
   get accounts() {
-    return web3.eth.requestAccounts ? web3.eth.requestAccounts() : globalThis.ethereum ? ethereum.enable() : []
+    return new Promise(async (resolve, reject) => {
+      let accounts = []
+      try {
+        // check if Metamask or similar is used as wallet
+        if (web3.eth.requestAccounts) accounts = await web3.eth.requestAccounts()
+      } catch (e) {
+        // else get accounts from web3 directly
+        const wallet = web3.eth.accounts.wallet
+        for (var i = 0; i < wallet.length; i++) {
+          accounts.push(wallet[0])
+        }
+      }
+      resolve(accounts)
+    })
   }
 })
