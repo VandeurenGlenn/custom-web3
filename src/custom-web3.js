@@ -10,25 +10,19 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
   constructor() {
     super()
   }
-  
-  connectedCallback() {    
-    this._init()
+
+  connectedCallback() {
+    globalThis.web3 = this.isSupported ? globalThis.web3 : new Web3(globalThis.ethereum || globalThis.web3.currentProvider)
   }
-  
+
   attributeChangedCallback(name, old, value) {
     if (old !== value) this[name] = value
   }
-  
-  async _init() {
-    this.autoConnect = true
-    globalThis.web3 = this.isSupported ? globalThis.web3 : new Web3(globalThis.ethereum || web3.currentProvider)
-    if (this.autoConnect) this.connect()
-  }
-  
+
   connect() {
     return this.accounts
   }
-  
+
   /**
    * Add a contract
    *
@@ -38,9 +32,9 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
    */
   async addContract(name, address, abi) {
     globalThis.contracts[name] = new globalThis.web3.eth.Contract(abi, address)
-    
+
     const methods = globalThis.contracts[name].methods
-    
+
     globalThis[name] = new Proxy(methods, {
       get(target, propKey, receiver) {
         return (...args) => {
@@ -50,15 +44,20 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
       }
     })
   }
-  
-  set autoConnect(value) {
-    this._autoConnect = value
-  }
-  
+
   set provider(value) {
+    if (typeof value === 'string') {
+      let Provider = value
+      const protocol = value.split('://')[0]
+      if (protocol.includes('http')) Provider = Web3.providers.HttpProvider
+      else if (protocol.includes('ipc')) Provider = Web3.providers.IpcProvider
+      else Provider = Web3.providers.WebsocketProvider
+
+      value = new Provider(value)
+    }
     web3.setProvider(value)
   }
-  
+
   get isSupported() {
     if (globalThis.web3) {
       let version = globalThis.web3.version
@@ -70,15 +69,11 @@ export default customElements.define('custom-web3', class CustomWeb3 extends HTM
           patch: version[2]
         }
         if (version.major >= 1 && version.minor >= 3) return true
-      }      
+      }
     }
     return false
   }
-  
-  get autoConnect() {
-    return this._autoConnect
-  }
-  
+
   get accounts() {
     return web3.eth.requestAccounts ? web3.eth.requestAccounts() : ethereum.enable()
   }
