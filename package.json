@@ -26,7 +26,7 @@
   "author": "Glenn Vandeuren <vandeurenglenn@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "web3": "^4.0.1"
+    "web3": "^4.15.0"
   },
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",
